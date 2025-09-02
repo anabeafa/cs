@@ -5,7 +5,7 @@ import { AcaoCena } from "./AcaoCena";
 @Entity()
 export class Cena {
     @PrimaryGeneratedColumn()
-    id!: number;
+    idCena!: number;
 
     @Column()
     nome!: string;

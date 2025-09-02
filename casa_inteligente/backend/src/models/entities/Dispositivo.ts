@@ -12,7 +12,7 @@ export class Dispositivo {
     @Column({ type: "boolean", default: true })
     estado!: boolean;
 
-    @ManyToOne(() => Comodo, comodo => comodo.dispositivos)
+    @ManyToOne(() => Comodo, comodo => comodo.dispositivos, {onDelete:'SET NULL'})
     @JoinColumn({ name: "idComodo" })
     comodo!: Comodo;
 }

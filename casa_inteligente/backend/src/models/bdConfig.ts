@@ -10,10 +10,11 @@ export const AppDataSource = new DataSource({
     type: "postgres",
     host: "localhost",
     port: 5432,
-    username: "postgre",
+    username: "postgres",
     password: "pgAdmin",
     database: "bd_casa_inteligente",
     synchronize: true, // cria/atualiza tabelas automaticamente
     logging: false,
     entities: [Comodo, Dispositivo, Cena, AcaoCena],
 });
+
