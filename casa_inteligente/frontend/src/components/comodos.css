@@ -57,7 +57,7 @@
 }
 
 button {
-  background-color: #f9a825; /* amarelo vibrante */
+  background-color: #f9a825; 
   border: none;
   padding: 7px 14px;
   margin-left: 10px;
@@ -92,4 +92,35 @@ input[type="text"].novo-comodo {
   text-align: center;
   margin-bottom: 20px;
   font-weight: 700;
+}
+
+.novo-comodo {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.novo-comodo input {
+  width: 100px;
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;  
+}
+
+.novo-comodo button {
+  padding: 8px 16px;
+  background-color: #ff9f00;
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.novo-comodo button:hover {
+  background-color: #cc7a00;
 }

@@ -3,9 +3,11 @@ import express from 'express';
 import deviceRoutes from './routes/dispositivos'; // Importa as rotas de dispositivo
 import roomRoutes from './routes/comodos'; // Importa as rotas de cômodos
 import sceneRoutes from './routes/cenas'; // Importa as rotas de cenas
+import cors from 'cors';  
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors());   
 app.use(express.json());
 
 // Direciona as requisições para as rotas de dispositivos

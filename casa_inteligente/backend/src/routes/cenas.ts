@@ -5,22 +5,14 @@ import {
     updateScene,
     deleteScene,
     executeScene
-} from '../controllers/sceneController' 
+} from '../controllers/sceneController';
+
 const router = Router();
 
-// Rota para CRIAR uma nova cena
-router.post('/', createScene);
-
-// Rota para LISTAR todas as cenas
-router.get('/', listScenes);
-
-// Rota para ALTERAR uma cena
-router.put('/:id', updateScene);
-
-// Rota para DELETAR uma cena
-router.delete('/:id', deleteScene);
-
-// Rota para EXECUTAR uma cena
-router.post('/:id/executar', executeScene);
+router.post('/', createScene);          // Criar cena
+router.get('/', listScenes);            // Listar cenas
+router.put('/:id', updateScene);        // Atualizar cena
+router.delete('/:id', deleteScene);     // Deletar cena
+router.post('/:id/executar', executeScene); // Executar cena (POST, conforme seu código)
 
 export default router;

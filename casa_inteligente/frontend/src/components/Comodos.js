@@ -8,18 +8,22 @@ export default function Comodos() {
   const [novoNome, setNovoNome] = useState('');
   const [editandoId, setEditandoId] = useState(null);
   const [editandoNome, setEditandoNome] = useState('');
+  const [carregando, setCarregando] = useState(false);
 
   useEffect(() => {
     carregarComodos();
   }, []);
 
   const carregarComodos = async () => {
+    setCarregando(true);
     try {
       const res = await axios.get('http://localhost:3000/api/comodos');
       setComodos(res.data);
       setErro('');
-    } catch {
+    } catch (error) {
       setErro('Erro ao buscar cômodos.');
+    } finally {
+      setCarregando(false);
     }
   };
 
@@ -28,15 +32,17 @@ export default function Comodos() {
       alert('Por favor, digite o nome do cômodo');
       return;
     }
+    setCarregando(true);
     try {
-      await axios.post('http://localhost:3000/api/comodos', { nome: novoNome });
+      await axios.post('http://localhost:3000/api/comodos', { nome: novoNome.trim() });
       setNovoNome('');
       carregarComodos();
-    } catch {
+    } catch (error) {
       alert('Erro ao adicionar cômodo');
+    } finally {
+      setCarregando(false);
     }
   };
-
 
   const iniciarEdicao = (id, nome) => {
     setEditandoId(id);
@@ -53,23 +59,29 @@ export default function Comodos() {
       alert('O nome não pode ficar vazio');
       return;
     }
+    setCarregando(true);
     try {
-      await axios.put(`http://localhost:3000/api/comodos/${editandoId}`, { nome: editandoNome });
+      await axios.put(`http://localhost:3000/api/comodos/${editandoId}`, { nome: editandoNome.trim() });
       setEditandoId(null);
       setEditandoNome('');
       carregarComodos();
-    } catch {
+    } catch (error) {
       alert('Erro ao salvar edição');
+    } finally {
+      setCarregando(false);
     }
   };
 
   const removerComodo = async (id) => {
     if (!window.confirm('Tem certeza que quer remover esse cômodo?')) return;
+    setCarregando(true);
     try {
       await axios.delete(`http://localhost:3000/api/comodos/${id}`);
       carregarComodos();
-    } catch {
+    } catch (error) {
       alert('Erro ao remover cômodo');
+    } finally {
+      setCarregando(false);
     }
   };
 
@@ -77,6 +89,8 @@ export default function Comodos() {
     <div className="page comodos">
       <h2>Cômodos</h2>
       {erro && <p className="error">{erro}</p>}
+
+      {carregando && <p>Carregando...</p>}
 
       <ul className="list">
         {comodos.map(c => (
@@ -88,15 +102,16 @@ export default function Comodos() {
                   value={editandoNome}
                   onChange={e => setEditandoNome(e.target.value)}
                   autoFocus
+                  disabled={carregando}
                 />
-                <button onClick={salvarEdicao}>Salvar</button>
-                <button onClick={cancelarEdicao}>Cancelar</button>
+                <button onClick={salvarEdicao} disabled={carregando}>Salvar</button>
+                <button onClick={cancelarEdicao} disabled={carregando}>Cancelar</button>
               </>
             ) : (
               <>
                 <span>{c.nome}</span>
-                <button onClick={() => iniciarEdicao(c.id, c.nome)}>Editar</button>
-                <button onClick={() => removerComodo(c.id)}>Remover</button>
+                <button onClick={() => iniciarEdicao(c.id, c.nome)} disabled={carregando}>Editar</button>
+                <button onClick={() => removerComodo(c.id)} disabled={carregando}>Remover</button>
               </>
             )}
           </li>
@@ -109,8 +124,9 @@ export default function Comodos() {
           placeholder="Novo cômodo"
           value={novoNome}
           onChange={e => setNovoNome(e.target.value)}
+          disabled={carregando}
         />
-        <button onClick={adicionarComodo}>Adicionar</button>
+        <button onClick={adicionarComodo} disabled={carregando}>Adicionar</button>
       </div>
     </div>
   );
