@@ -9,10 +9,10 @@ import {
 
 const router = Router();
 
-router.post('/', createScene);          // Criar cena
-router.get('/', listScenes);            // Listar cenas
-router.put('/:id', updateScene);        // Atualizar cena
-router.delete('/:id', deleteScene);     // Deletar cena
-router.post('/:id/executar', executeScene); // Executar cena (POST, conforme seu código)
+router.post('/', createScene);        
+router.get('/', listScenes);          
+router.put('/:id', updateScene);        
+router.delete('/:id', deleteScene);    
+router.post('/:id/executar', executeScene); 
 
 export default router;
